@@ -1,0 +1,11 @@
+;; shadow-cljs configuration
+{:source-paths ["src/"]
+
+ :dependencies [[cloroutine "6"]
+                [com.rpl/specter "1.1.3-SNAPSHOT"]]
+
+ :builds {:main {:target    :node-script
+                 :output-to "target/main.js"
+                 :main      naked.core/start
+                 :modules   {:main {:entries [naked.core]}}}}
+ :nrepl {:port 9999}}

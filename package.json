@@ -1,0 +1,9 @@
+{
+  "name": "naked",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "readline-sync": "^1.4.10",
+    "shadow-cljs": "^2.8.42"
+  }
+}
