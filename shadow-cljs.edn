@@ -2,6 +2,7 @@
 {:source-paths ["src/"]
 
  :dependencies [[cloroutine "6"]
+                [org.clojure/core.async "0.4.490"]
                 [com.rpl/specter "1.1.3-SNAPSHOT"]]
 
  :builds {:main {:target    :node-script
