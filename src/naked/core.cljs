@@ -1,13 +1,24 @@
 (ns naked.core
   (:require
-    [com.rpl.specter :as sp :refer [setval select-one]]
     [utils.asyncawait :refer [await] :refer-macros [async]]
-    ))
+    [cljs.core.async :refer [chan <! >! timeout] :refer-macros [go go-loop] :as a]
+    [taoensso.tufte :as tufte :refer-macros (defnp p profiled profile)]))
 
+(tufte/add-basic-println-handler! {})
+
+(defn get-x [] (println :x))
+(defn get-y [] (println :y))
 
 (defn start []
-  (async
-    (let [user-info  {:hello {:thing "hihi"}}
-          user-info2 (setval [:hello :thing] "haha" user-info)]
-      (println user-info)
-      (println user-info2))))
+  ;; No warning here:
+  (profile {}
+           (dotimes [_ 5]
+             (p :get-x (get-x))
+             (p :get-y (get-y))))
+
+  ;; Wrong number of args (11) passed to taoensso.tufte/HandlerVal
+  (async ;; <- no warning in a go block
+    (profile {}
+             (dotimes [_ 5]
+               (p :get-x (get-x))
+               (p :get-y (get-y))))))
